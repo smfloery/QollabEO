@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/QollabEO/" >
+        <file>gfx/icon.png</file>
+    </qresource>
+</RCC>

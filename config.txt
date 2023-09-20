@@ -1,0 +1,4 @@
+URL=https://terrain.geo.tuwien.ac.at
+SIO_PATH=/qollab
+MAIL=YOUR_MAIL_HERE
+USER=YOUR_USER_NAME
