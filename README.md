@@ -19,7 +19,7 @@ Before your ready to use the plugin it is necessary to set additional user metad
 
 The plugin basically consists of two GUI elements: The main dialog which which consists of three tabs for scheduling, starting and joining a QollabEO session. Additionally there is the meeting dialog which is the interface you will interact with when your within an meeting.
 
-![Alt text](docs/gfx/qollabeo_main_dialog.png?raw=true "Title")
+![Alt text](docs/gfx/qollabeo_main_dialog.PNG?raw=true "Title")
 
 
 ### 2.1 Scheduling a meeting
