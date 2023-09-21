@@ -32,7 +32,7 @@ All future scheduled meetings are displayed in the table in the "Start Session"-
 Paste the QollabEO URL which you received from the host into the text field in the
 "Join Meeting"-Tab. After clicking "Join" a connection to the server will be established and the meeting gui will be launched. You are now within a session with the host and other users who were invited.
 
-### 3. Functionality
+## 3. Functionality
 Currently the following functionalities are implemented:
 
 **Synchronisation of WMS layers:**
@@ -48,7 +48,7 @@ If the HOST changes hist project CRS, this change is also synhronised with all u
 **Adding features for highlight specific regions:**
 As described previously, on starting or joining a meeting a "notes" layer is automatically added to the QollabEO group. Using the "Add rectangle" tool from the meeting dialog each user can draw Rectangles which are automaticalla added to the notes layer. If any user adds a rectangle to this layer is syncrhonised with all users. As long as the button is checked one can create rectangles to highlight certain areas which you find interesting or want to talk about. To deactivate the tool just uncheck the button by clicking it again. A default layer style is used to show only the outlines as well as the name of the user who created the rectangles. There are currently three caveats: i. Only rectangles created after a user has joined the meeting are synchronised. Hence, a user joining later to the meeting will not see any features which have been created before. ii. Features can't be deleted. iii. All rectangles have the same color. All three limitations will be adressed in future releases.
 
-### 4. ToDos
+## 4. ToDos
 
 - [ ] Delete features from notes layer
 - [ ] Synchronise features which have been created previoulsy before a user joins
@@ -60,8 +60,8 @@ As described previously, on starting or joining a meeting a "notes" layer is aut
 - [ ] Synchronisation of additional layers beyond WMS.
 - [ ] Synchronisation of local layers from an QGIS project
 
-### 5. General remarks
+## 5. General remarks
 Currently we are using a small development server for running the server part of the QollabEO plugin. Hence, this might lead to problems regarding the scalability to more users. We will monitor the usage of the plugin with respect to our ressources. We might switch (hopefully, as this would mean that the plugin is increasingly used) to more dedicated ressources.
 
-### 6. Funding
+## 6. Funding
 This plugin was developed with the SEHAG research project funded by the DFG and FWF. 
