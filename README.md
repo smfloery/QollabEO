@@ -11,13 +11,13 @@ pip install python-socketio[client]
 
 After sucessfully installing python-socketio you can restart QGIS and install the plugin
 from the plugin repository. If no errors occur a new symbol should appear in the toolbar.
-Alternatively you can also launch the plugin from Web --> QollabEO --> QollabEO.
+Alternatively you can also launch the plugin from the menu selecting `Web` &rarr; `QollabEO` &rarr; `QollabEO`.
 
-Before your ready to use the plugin it is necessary to set additional user metadata. In the installation directory of the plugin there is a config.txt file. Within this file you need to set the two values "MAIL" and "USER". Now your really ready to go.
+Before your ready to use the plugin it is necessary to set additional user metadata. In the installation directory of the plugin there is a config.txt file. Within this file you need to set the two values "MAIL" and "USER". Now your really ready to go. To find your plugin directory you can select `Settings` &rarr; `User Profile`s &rarr; `Open active profile folder`. From there you can got to `python` &rarr; `plugins` &rarr; `QollabEO`.
 
 ## 2. Usage
 
-The plugin basically consists of two GUI elements: The main dialog which which consists of three tabs for scheduling, starting and joining a QollabEO session. Additionally there is the meeting dialog which is the interface you will interact with when your within an meeting.
+The plugin basically consists of two GUI elements: The main dialog which which consists of three tabs for scheduling, starting and joining QollabEO sessions. The second element, the meeting dialog, is the main interface within an meeting and will be automatically launched when you start or join a meeting.
 
 ![Alt text](docs/gfx/qollabeo_main_dialog.PNG?raw=true "Title")
 
