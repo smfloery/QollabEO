@@ -65,3 +65,6 @@ Currently we are using a small development server for running the server part of
 
 ## 6. Funding
 This plugin was developed with the SEHAG research project funded by the DFG and FWF. 
+
+## 7. Contact
+In case of contact please use s.floery@gmx.at
