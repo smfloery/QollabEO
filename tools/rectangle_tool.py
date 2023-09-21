@@ -21,6 +21,9 @@ class RectangleMapTool(QgsMapToolEmitPoint):
     def set_dlg(self, dlg):
         self.dlg = dlg
 
+    def set_user(self, name):
+        self.user = name
+    
     def reset(self):
         self.startPoint = self.endPoint = None
         self.isEmittingPoint = False

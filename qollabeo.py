@@ -274,6 +274,11 @@ class QollabEO:
         lyr = QgsRasterLayer(data["source"], data["name"], 'wms')
         self.lyr_grp.insertLayer(int(data["tix"]), lyr)
         self.qgis_project.addMapLayer(lyr, False)
+        
+        lyrs_in_grp = self.lyr_grp.findLayers()
+        lids_in_grp = [lyr.layerId() for lyr in lyrs_in_grp if lyr.layer().providerType() == "wms" and lyr.layerId() != self.mem_lyr.id()]
+        cust_order = [self.mem_lyr.id()] + lids_in_grp
+        self.qgis_project.layerTreeRoot().setCustomLayerOrderByIds(cust_order)
     
     def _on_lyr_removed(self, data):
         self.dlg.qtsig_lyr_removed.emit(data)
@@ -282,7 +287,8 @@ class QollabEO:
         lyr = self.qgis_project.mapLayersByName(data["name"])
         if len(lyr) == 1:
             self.qgis_project.removeMapLayer(lyr[0].id())
-
+            self.canvas.refresh()
+            
     def _on_session_created(self, data):
         
         #store created session also locally in sqlite3 database;
@@ -363,7 +369,7 @@ class QollabEO:
         #add memory layer for storing "notes" when user is NOT host; this is done after
         #the user was asked to change his CRS to make sure its the same as the HOST
         mem_lyr = QgsVectorLayer("Polygon?crs=%s" % (self.qgis_project.crs().toWkt()), "notes", "memory")
-        mem_lyr.loadNamedStyle(os.path.join(self.plugin_dir, "qml", "notes_lyr_style.qml"))
+        mem_lyr.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", "notes_lyr_style.qml"))
         mem_lyr_pro = mem_lyr.dataProvider()
         mem_lyr_pro.addAttributes([QgsField("user", QVariant.String)])
         mem_lyr_pro.addAttributes([QgsField("uid", QVariant.String)])
@@ -372,6 +378,9 @@ class QollabEO:
         
         self.lyr_grp.insertLayer(0, mem_lyr)
         self.qgis_project.addMapLayer(mem_lyr, False)
+        
+        # self.lyr_order = self.qgis_project.layerTreeRoot().layerOrder()
+        
         self.rect_tool.set_lyr(mem_lyr)
         self.rect_tool.set_dlg(self.meeting_dlg)
      
@@ -418,6 +427,7 @@ class QollabEO:
         self.meeting_dlg.show()
         
         root = self.qgis_project.layerTreeRoot()
+        root.setHasCustomLayerOrder(True)
         lyr_grp = root.findGroup("QollabEO")
         
         if lyr_grp is None:
@@ -445,8 +455,11 @@ class QollabEO:
             mem_lyr.updateFields()
             self.mem_lyr = mem_lyr
             # mem_lyr.featureAdded.connect(self.feat_added)
-
+            
             self.lyr_grp.insertLayer(0, mem_lyr)
+            # self.lyr_grp_order = self.lyr_grp.layerOrder()
+            # self.lyr_order = root.layerOrder()
+            
             self.qgis_project.addMapLayer(mem_lyr, False)
             self.rect_tool.set_lyr(mem_lyr)
             self.rect_tool.set_dlg(self.meeting_dlg)
@@ -483,19 +496,24 @@ class QollabEO:
 
     def pre_lyr_added(self, lyr_grp):
         lyrs_in_grp = lyr_grp.findLayers()
-        lid_in_grp = [lyr.layerId() for lyr in lyrs_in_grp if lyr.layer().providerType() == "wms"]
+        lid_in_grp = [lyr.layerId() for lyr in lyrs_in_grp if lyr.layer().providerType() == "wms" and lyr.layerId() != self.mem_lyr.id()]
         self.pre_lids = lid_in_grp
         
     def lyr_added(self, lyr_grp):
+        #exclude notes layer from lids_in_grp as we use this list for setting the custom layer order
         lyrs_in_grp = lyr_grp.findLayers()
-        lids_in_grp = [lyr.layerId() for lyr in lyrs_in_grp if lyr.layer().providerType() == "wms"]
+        lids_in_grp = [lyr.layerId() for lyr in lyrs_in_grp if lyr.layer().providerType() == "wms" and lyr.layerId() != self.mem_lyr.id()]
         added_lid = list(set(lids_in_grp) - set(self.pre_lids))
         
         if len(added_lid) == 1:
         
             lyr_ix = lids_in_grp.index(added_lid[0])
             added_lyr = lyrs_in_grp[lyr_ix].layer()
-
+            
+            #always set the notes layer at index 0 for rendering; on top of everything else
+            cust_order = [self.mem_lyr.id()] + lids_in_grp
+            self.qgis_project.layerTreeRoot().setCustomLayerOrderByIds(cust_order)
+            
             send_data = {"name":added_lyr.name(), "source":added_lyr.source(), "tix":lyr_ix}
             
             self.emit_msg_to_server("lyr_added", msg_data=send_data, nspace="/start")
@@ -677,6 +695,8 @@ class QollabEO:
             self.show_message("No username provided.")
             return
         
+        self.name = curr_name
+        
         sel_six = self.dlg.table_session.selectedIndexes()
         
         if len(sel_six) > 0:
@@ -701,6 +721,8 @@ class QollabEO:
         if curr_name == "":
             self.show_message("No username provided.", level="warning")
             return
+        
+        self.name = curr_name
         
         curr_url = self.dlg.input_join_url.toPlainText()
         if curr_url == "":
@@ -727,6 +749,7 @@ class QollabEO:
     def set_rect_tool(self):
         if self.meeting_dlg.add_rect_button.isChecked():
             self.canvas.setMapTool(self.rect_tool)
+            self.rect_tool.set_user(self.name)
         else:
             self.canvas.setMapTool(self.pan_tool)
 
