@@ -64,7 +64,4 @@ As described previously, on starting or joining a meeting a "notes" layer is aut
 Currently we are using a small development server for running the server part of the QollabEO plugin. Hence, this might lead to problems regarding the scalability to more users. We will monitor the usage of the plugin with respect to our ressources. We might switch (hopefully, as this would mean that the plugin is increasingly used) to more dedicated ressources.
 
 ## 6. Funding
-This plugin was developed with the SEHAG research project funded by the DFG and FWF. 
-
-## 7. Contact
-In case of contact please use s.floery@gmx.at
+This plugin was developed within the SEHAG [(https://sehag.ku.de/)](https://sehag.ku.de/) research project funded by the DFG and FWF. 
