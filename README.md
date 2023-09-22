@@ -48,7 +48,7 @@ If the HOST changes hist project CRS, this change is also synhronised with all u
 **Adding features for highlight specific regions:**
 As described previously, on starting or joining a meeting a "notes" layer is automatically added to the QollabEO group. Using the "Add rectangle" tool from the meeting dialog each user can draw Rectangles which are automaticalla added to the notes layer. If any user adds a rectangle to this layer is syncrhonised with all users. As long as the button is checked one can create rectangles to highlight certain areas which you find interesting or want to talk about. To deactivate the tool just uncheck the button by clicking it again. A default layer style is used to show only the outlines as well as the name of the user who created the rectangles. There are currently three caveats: i. Only rectangles created after a user has joined the meeting are synchronised. Hence, a user joining later to the meeting will not see any features which have been created before. ii. Features can't be deleted. iii. All rectangles have the same color. All three limitations will be adressed in future releases.
 
-## 4. ToDos
+## 4. Planned features
 
 - [ ] Delete features from notes layer
 - [ ] Synchronise features which have been created previoulsy before a user joins
